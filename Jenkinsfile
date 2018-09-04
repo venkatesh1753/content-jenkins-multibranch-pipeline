@@ -4,9 +4,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'javac -d . src/*.java'
-        sh 'echo Main-Class: Rectangulator > MANIFEST.MF'
-        sh 'jar -cvmf MANIFEST.MF rectangle.jar *.class'
+        sh "./gradlew build"
       }
     }
     stage('run') {
@@ -17,7 +15,7 @@ pipeline {
   }
   post {
     success {
-      archiveArtifacts artifacts: 'rectangle.jar', fingerprint: true
+      archiveArtifacts artifacts: 'dist/trainSchedule.zip', fingerprint: true
     }
   }
 }
